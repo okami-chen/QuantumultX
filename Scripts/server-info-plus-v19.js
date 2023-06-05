@@ -51,8 +51,8 @@ function json2info(cnt,paras) {
 
 function Display(resp) {
     let body = JSON.parse(resp)
-    let score = "</br><b>"+ "<font  color=>" +"欺诈 " + "</font> : " + "</b>"+ "<font  color=>"+ body.data.risk +"</font></br>"
-    let risk = "</br><b>"+ "<font  color=>" +"风险 " + "</font> : " + "</b>"+ "<font  color=>"+ body.data.score +"</font></br>"
+    let score = "</br><b>"+ "<font  color=>" +"风险 " + "</font> : " + "</b>"+ "<font  color=>"+ body.data.risk +"</font></br>"
+    let risk = "</br><b>"+ "<font  color=>" +"评分 " + "</font> : " + "</b>"+ "<font  color=>"+ body.data.score +"</font></br>"
     return (score+risk)
 }
 
