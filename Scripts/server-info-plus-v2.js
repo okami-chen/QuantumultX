@@ -36,7 +36,7 @@ let base_url = "https://scamalytics.com/ip/"
         console.log("url: "+ base_url+ip+"\n\n"+message)
         message = message+ "------------------------------"+"</br>"+"<font color=#6959CD>"+"<b>节点</b> ➟ " + $environment.params+ "</font>"
         message =  `<p style="text-align: center; font-family: -apple-system; font-size: large; font-weight: thin">` + message + `</p>`
-        $done({"title": "    🔎  查询结果", "htmlMessage": message});
+        $done({"title": "🔎  查询结果", "htmlMessage": message});
       }),reason => {
         message = `<p style="text-align: center; font-family: -apple-system; font-size: large; font-weight: bold;">` + message + `</p>`
         $done({"title": "🔎  查询结果", "htmlMessage": message});
