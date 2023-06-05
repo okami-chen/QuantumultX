@@ -73,7 +73,7 @@ function Display(cnt, data) {
   risk +="</br><b>"+ "<font  color=>" +"恶意 " + "</font> : " + "</b>"+ "<font  color=>"+ data.threat.is_known_attacker+"</font></br>"
   risk +="</br><b>"+ "<font  color=>" +"滥用 " + "</font> : " + "</b>"+ "<font  color=>"+ data.threat.is_known_abuser+"</font></br>"
   risk +="</br><b>"+ "<font  color=>" +"类型 " + "</font> : " + "</b>"+ "<font  color=>"+ data.asn.type+"</font></br>"
-  return (score+risk+proxy)
+  return (score+risk)
 }
 
 //极高风险‼️、高风险⚠️ 和 中风险🟡 低风险✅
