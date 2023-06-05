@@ -29,8 +29,9 @@ $task.fetch(myRequest).then(response => {
             timeout: 4000
         };
         $task.fetch(myRequest2).then(resp => {
+            console.log("response.body==>"+ response.body)
+            console.log("resp.body==>"+ resp.body)
             message = message + Display(response.body, JSON.parse(resp.body))
-            console.log("url: "+ base_url+ip+"\n\n"+message)
             message = message+ "------------------------------"+"</br>"+"<font color=#6959CD>"+"<b>节点</b> ➟ " + $environment.params+ "</font>"
             message =  `<p style="text-align: center; font-family: -apple-system; font-size: large; font-weight: thin">` + message + `</p>`
             $done({"title": "🔎  查询结果", "htmlMessage": message});
