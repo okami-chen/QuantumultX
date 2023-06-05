@@ -9,10 +9,10 @@ var myRequest = {
 };
 
 var message = ""
-const paras = ["ip","organization","country_code","continent_code","city","zip"]
+const paras = ["ip","organization","country_code","continent","city","zip"]
 const paran = ["IP","ISP","地区","大洲","城市","邮编"]
 $task.fetch(myRequest).then(response => {
-    message = response? json2info(response.body,paras) : ""
+    message = response? json2info(response.body.data,paras) : ""
     let ip = JSON.parse(response.body)["ip"]
     var myRequest2 = {
         url: "https://api.ipdata.co/?api-key=e2591b3a85fca5a39e04c34f530fc8d4b82400ff70df867b67eb3681&ip="+ip,
@@ -65,7 +65,7 @@ function Display(data, obj) {
     risk = risk + "</br><b>"+ "<font  color=>" +"代理 " + "</font> : " + "</b>"+ "<font  color=>"+data["threat"]["is_proxy"]+"</font></br>"
     risk = risk + "</br><b>"+ "<font  color=>" +"恶意 " + "</font> : " + "</b>"+ "<font  color=>"+data["threat"]["is_known_attacker"]+"</font></br>"
     risk = risk + "</br><b>"+ "<font  color=>" +"滥用 " + "</font> : " + "</b>"+ "<font  color=>"+data["threat"]["is_known_abuser"]+"</font></br>"
-    risk = risk + "</br><b>"+ "<font  color=>" +"类型 " + "</font> : " + "</b>"+ "<font  color=>"+data["asn"]["type"]+"</font></br></br>"
+    risk = risk + "</br><b>"+ "<font  color=>" +"类型 " + "</font> : " + "</b>"+ "<font  color=>"+data["asn"]["type"]+"</font></br>"
     risk = risk + "</br><b>"+ "<font  color=>" +"风险 " + "</font> : " + "</b>"+ "<font  color=>"+obj["data"]["risk"]+"</font></br>"
     risk = risk + "</br><b>"+ "<font  color=>" +"得分 " + "</font> : " + "</b>"+ "<font  color=>"+obj["data"]["score"]+"</font></br>"
     return risk
