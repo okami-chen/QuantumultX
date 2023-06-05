@@ -46,22 +46,22 @@ var title =flags.get(obj['countryCode']) + ' '+ City_ValidCheck(obj['city']);//+
 var subtitle = ISP_ValidCheck(obj['org']);
 var ip = obj['query'];
 var description = '服务商:'+obj['isp'] + '\n'+'地区:' +City_ValidCheck(obj['regionName'])+ '\n' + 'IP:'+ obj['query'] + '\n' +'时区:'+ obj['timezone'];
+$done({title, subtitle, ip, description});
 
-
-var url = "https://api.ipdata.co/?api-key=e2591b3a85fca5a39e04c34f530fc8d4b82400ff70df867b67eb3681"
-var opts = {
+//var url = "https://api.ipdata.co/?api-key=e2591b3a85fca5a39e04c34f530fc8d4b82400ff70df867b67eb3681"
+//var opts = {
     //policy: $environment.params
-};
-var request = {
-    url: url,
+//};
+//var request = {
+//    url: url,
 //    opts: opts,
-    timeout: 5000
-};
+//    timeout: 5000
+//};
 
-$task.fetch(request).then(response => {
-  data = JSON.parse(response)
-  description = description+"\n代理："+threat.is_proxy
-  $done({title, subtitle, ip, description});
-}, reason => {
-  $done({title, subtitle, ip, description});
-})
+//$task.fetch(request).then(response => {
+//  data = JSON.parse(response)
+//  description = description+"\n代理："+threat.is_proxy
+//  $done({title, subtitle, ip, description});
+//}, reason => {
+//  $done({title, subtitle, ip, description});
+//})
