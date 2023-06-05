@@ -1,13 +1,4 @@
- /***
-  [task_local]
-  event-interaction https://raw.githubusercontent.com/KOP-XIAO/QuantumultX/master/Scripts/server-info-plus.js, tag=节点信息Plus, img-url=info.bubble.system.system  
-  @XIAO_KOP
-  2023-04-14
-  **/
-
-// var content= `<p style="text-align: center; font-family: -apple-system; font-size: large; font-weight: bold">` + response.body + `</p>`;
-
-let base_url = "https://scamalytics.com/ip/"
+  let base_url = "https://scamalytics.com/ip/"
 
   var url = "https://api.ip.sb/geoip"
   var opts = {
