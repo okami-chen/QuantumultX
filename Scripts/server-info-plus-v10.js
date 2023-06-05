@@ -35,16 +35,16 @@ let base_url = "https://scamalytics.com/ip/"
       console.log("url: "+ base_url+ip+"\n\n"+message)
       message = message+ "------------------------------"+"</br>"+"<font color=#6959CD>"+"<b>节点</b> ➟ " + $environment.params+ "</font>"
       message =  `<p style="text-align: center; font-family: -apple-system; font-size: large; font-weight: thin">` + message + `</p>`
-      $done({"title": "    🔎 IP.SB 查询结果", "htmlMessage": message});
+      $done({"title": "    🔎  查询结果", "htmlMessage": message});
     }, reason => {
     message = "</br></br>🛑 查询超时"
     message = `<p style="text-align: center; font-family: -apple-system; font-size: large; font-weight: bold;">` + message + `</p>`
-      $done({"title": "🔎 IP.SB 查询结果", "htmlMessage": message});
+      $done({"title": "🔎  查询结果", "htmlMessage": message});
   })   
   }, reason => {
     message = "</br></br>🛑 查询超时"
     message = `<p style="text-align: center; font-family: -apple-system; font-size: large; font-weight: bold;">` + message + `</p>`
-      $done({"title": "🔎 IP.SB 查询结果", "htmlMessage": message});
+      $done({"title": "🔎  查询结果", "htmlMessage": message});
   })
 
 function json2info(cnt,paras) {
@@ -61,9 +61,9 @@ function json2info(cnt,paras) {
 
 function Display(cnt) {
   let score = cnt.indexOf(`"score":`)!=-1 ? cnt.split(`"score":`)[1].split("\n")[0]: "NA"
-  score = "</br><b>"+ "<font  color=>" +"欺诈指数 " + "</font> : " + "</b>"+ "<font  color=>"+ score.replace(/"|,/g,"") +"</font></br>"
+  score = "</br><b>"+ "<font  color=>" +"欺诈 " + "</font> : " + "</b>"+ "<font  color=>"+ score.replace(/"|,/g,"") +"</font></br>"
   let risk = cnt.indexOf(`"risk":`)!=-1 ?  cnt.split(`"risk":`)[1].split("\n")[0] : "NA"
-  risk = "</br><b>"+ "<font  color=>" +"风险等级 " + "</font> : " + "</b>"+ "<font  color=>"+ E2C(risk.replace(/"|,/g,"")) +"</font></br>"
+  risk = "</br><b>"+ "<font  color=>" +"风险 " + "</font> : " + "</b>"+ "<font  color=>"+ E2C(risk.replace(/"|,/g,"")) +"</font></br>"
   return (score+risk)
 }
 
