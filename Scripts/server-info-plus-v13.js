@@ -19,17 +19,17 @@ $task.fetch(myRequest).then(response => {
     var myRequest1 = {
         url: base_url+ip,
         opts: opts,
-        timeout: 3000
+        timeout: 4000
     };
     var myRequest2 = {
         url: "https://api.ipdata.co/?api-key=e2591b3a85fca5a39e04c34f530fc8d4b82400ff70df867b67eb3681&ip="+ip,
         opts: opts,
-        timeout: 3000
+        timeout: 4000
     };
     var myRequest3 = {
         url: "https://ip234.in/fraud_check?ip="+ip,
         opts: opts,
-        timeout: 3000
+        timeout: 4000
     };
 
     let split ="------------------------------"+"</br>"
