@@ -1,9 +1,3 @@
- /***
-  [task_local]
-  event-interaction https://raw.githubusercontent.com/KOP-XIAO/QuantumultX/master/Scripts/server-info-plus.js, tag=节点信息Plus, img-url=info.bubble.system.system  
-  @XIAO_KOP
-  2023-04-14
-  **/
 
 // var content= `<p style="text-align: center; font-family: -apple-system; font-size: large; font-weight: bold">` + response.body + `</p>`;
 
@@ -25,26 +19,37 @@ let base_url = "https://scamalytics.com/ip/"
   $task.fetch(myRequest).then(response => {
     message = response? json2info(response.body,paras) : ""
     let ip = JSON.parse(response.body)["ip"]
-      var myRequest1 = {
+    var myRequest1 = {
       url: base_url+ip,
       opts: opts,
       timeout: 4000
-  };
-    $task.fetch(myRequest1).then(response => {
-      message = message + Display(response.body)
-      console.log("url: "+ base_url+ip+"\n\n"+message)
-      message = message+ "------------------------------"+"</br>"+"<font color=#6959CD>"+"<b>节点</b> ➟ " + $environment.params+ "</font>"
-      message =  `<p style="text-align: center; font-family: -apple-system; font-size: large; font-weight: thin">` + message + `</p>`
-      $done({"title": "    🔎 IP.SB 查询结果", "htmlMessage": message});
+    };
+    
+   $task.fetch(myRequest1).then(response => {
+      var myRequest2 = {
+        url: "https://api.ipdata.co/?api-key=e2591b3a85fca5a39e04c34f530fc8d4b82400ff70df867b67eb3681&ip="+ip,
+        opts: opts,
+        timeout: 4000
+      };
+      $task.fetch(myRequest2).then(resp => {
+        message = message + Display(response.body,JSON.parse(resp.body))
+        console.log("url: "+ base_url+ip+"\n\n"+message)
+        message = message+ "------------------------------"+"</br>"+"<font color=#6959CD>"+"<b>节点</b> ➟ " + $environment.params+ "</font>"
+        message =  `<p style="text-align: center; font-family: -apple-system; font-size: large; font-weight: thin">` + message + `</p>`
+        $done({"title": "    🔎  查询结果", "htmlMessage": message});
+      }),reason => {
+        message = `<p style="text-align: center; font-family: -apple-system; font-size: large; font-weight: bold;">` + message + `</p>`
+        $done({"title": "🔎  查询结果", "htmlMessage": message});
+      })
     }, reason => {
-    message = "</br></br>🛑 查询超时"
-    message = `<p style="text-align: center; font-family: -apple-system; font-size: large; font-weight: bold;">` + message + `</p>`
-      $done({"title": "🔎 IP.SB 查询结果", "htmlMessage": message});
+      message = "</br></br>🛑 查询超时"
+      message = `<p style="text-align: center; font-family: -apple-system; font-size: large; font-weight: bold;">` + message + `</p>`
+      $done({"title": "🔎  查询结果", "htmlMessage": message});
   })   
   }, reason => {
-    message = "</br></br>🛑 查询超时"
-    message = `<p style="text-align: center; font-family: -apple-system; font-size: large; font-weight: bold;">` + message + `</p>`
-      $done({"title": "🔎 IP.SB 查询结果", "htmlMessage": message});
+      message = "</br></br>🛑 查询超时"
+      message = `<p style="text-align: center; font-family: -apple-system; font-size: large; font-weight: bold;">` + message + `</p>`
+      $done({"title": "🔎  查询结果", "htmlMessage": message});
   })
 
 function json2info(cnt,paras) {
@@ -59,12 +64,16 @@ function json2info(cnt,paras) {
   return res
 }
 
-function Display(cnt) {
+function Display(cnt, data) {
   let score = cnt.indexOf(`"score":`)!=-1 ? cnt.split(`"score":`)[1].split("\n")[0]: "NA"
-  score = "</br><b>"+ "<font  color=>" +"欺诈指数 " + "</font> : " + "</b>"+ "<font  color=>"+ score.replace(/"|,/g,"") +"</font></br>"
+  score = "</br><b>"+ "<font  color=>" +"欺诈 " + "</font> : " + "</b>"+ "<font  color=>"+ score.replace(/"|,/g,"") +"</font></br>"
   let risk = cnt.indexOf(`"risk":`)!=-1 ?  cnt.split(`"risk":`)[1].split("\n")[0] : "NA"
-  risk = "</br><b>"+ "<font  color=>" +"风险等级 " + "</font> : " + "</b>"+ "<font  color=>"+ E2C(risk.replace(/"|,/g,"")) +"</font></br>"
-  return (score+risk)
+  risk = "</br><b>"+ "<font  color=>" +"风险 " + "</font> : " + "</b>"+ "<font  color=>"+ E2C(risk.replace(/"|,/g,"")) +"</font></br>"
+  risk +="</br><b>"+ "<font  color=>" +"代理 " + "</font> : " + "</b>"+ "<font  color=>"+ data.threat.is_proxy+"</font></br>"
+  risk +="</br><b>"+ "<font  color=>" +"恶意 " + "</font> : " + "</b>"+ "<font  color=>"+ data.threat.is_known_attacker+"</font></br>"
+  risk +="</br><b>"+ "<font  color=>" +"滥用 " + "</font> : " + "</b>"+ "<font  color=>"+ data.threat.is_known_abuser+"</font></br>"
+  risk +="</br><b>"+ "<font  color=>" +"类型 " + "</font> : " + "</b>"+ "<font  color=>"+ data.asn.type+"</font></br>"
+  return (score+risk+proxy)
 }
 
 //极高风险‼️、高风险⚠️ 和 中风险🟡 低风险✅
