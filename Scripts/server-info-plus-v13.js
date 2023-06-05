@@ -19,20 +19,32 @@ $task.fetch(myRequest).then(response => {
     var myRequest1 = {
         url: base_url+ip,
         opts: opts,
-        timeout: 4000
+        timeout: 3000
     };
     var myRequest2 = {
         url: "https://api.ipdata.co/?api-key=e2591b3a85fca5a39e04c34f530fc8d4b82400ff70df867b67eb3681&ip="+ip,
         opts: opts,
-        timeout: 4000
+        timeout: 3000
     };
+    var myRequest3 = {
+        url: "https://ip234.in/fraud_check?ip="+ip,
+        opts: opts,
+        timeout: 3000
+    };
+
+    let split ="------------------------------"+"</br>"
 
     $task.fetch(myRequest1).then(response => {
         $task.fetch(myRequest2).then(resp => {
-            message = message + Display(response.body, JSON.parse(resp.body))
-            message = message+ "------------------------------"+"</br>"+"<font color=#6959CD>"+"<b>节点</b> ➟ " + $environment.params+ "</font>"
-            message =  `<p style="text-align: center; font-family: -apple-system; font-size: large; font-weight: thin">` + message + `</p>`
-            $done({"title": "🔎  查询结果", "htmlMessage": message});
+            $task.fetch(myRequest3).then(obj => {
+                message = message + Display(response.body, JSON.parse(resp.body), JSON.parse(obj.body))
+                message = message+ split+"<font color=#6959CD>"+"<b>节点</b> ➟ " + $environment.params+ "</font>"
+                message =  `<p style="text-align: center; font-family: -apple-system; font-size: large; font-weight: thin">` + message + `</p>`
+                $done({"title": "🔎  查询结果", "htmlMessage": message});
+            }),reason => {
+                message = `<p style="text-align: center; font-family: -apple-system; font-size: large; font-weight: bold;">` + message + `</p>`
+                $done({"title": "🔎  查询结果", "htmlMessage": message});
+            }
         }),reason => {
             message = `<p style="text-align: center; font-family: -apple-system; font-size: large; font-weight: bold;">` + message + `</p>`
             $done({"title": "🔎  查询结果", "htmlMessage": message});
@@ -60,15 +72,20 @@ function json2info(cnt,paras) {
     return res
 }
 
-function Display(cnt, data) {
+function Display(cnt, data, obj) {
     let score = cnt.indexOf(`"score":`)!=-1 ? cnt.split(`"score":`)[1].split("\n")[0]: "NA"
     score = "</br><b>"+ "<font  color=>" +"欺诈 " + "</font> : " + "</b>"+ "<font  color=>"+ score.replace(/"|,/g,"") +"</font></br>"
     let risk = cnt.indexOf(`"risk":`)!=-1 ?  cnt.split(`"risk":`)[1].split("\n")[0] : "NA"
     risk = "</br><b>"+ "<font  color=>" +"风险 " + "</font> : " + "</b>"+ "<font  color=>"+ E2C(risk.replace(/"|,/g,"")) +"</font></br>"
+    risk = risk + "-------------ipdata--------------"+"</br>"
+    risk = risk + "</br><b>"+ "<font  color=>" +"I P " + "</font> : " + "</b>"+ "<font  color=>"+data["ip"]+"</font></br>"
     risk = risk + "</br><b>"+ "<font  color=>" +"代理 " + "</font> : " + "</b>"+ "<font  color=>"+data["threat"]["is_proxy"]+"</font></br>"
     risk = risk + "</br><b>"+ "<font  color=>" +"恶意 " + "</font> : " + "</b>"+ "<font  color=>"+data["threat"]["is_known_attacker"]+"</font></br>"
     risk = risk + "</br><b>"+ "<font  color=>" +"滥用 " + "</font> : " + "</b>"+ "<font  color=>"+data["threat"]["is_known_abuser"]+"</font></br>"
-    risk = risk + "</br><b>"+ "<font  color=>" +"类型 " + "</font> : " + "</b>"+ "<font  color=>"+data.asn.type+"</font></br>"
+    risk = risk + "</br><b>"+ "<font  color=>" +"类型 " + "</font> : " + "</b>"+ "<font  color=>"+data["asn"]["type"]+"</font></br>"
+    risk = risk + "-------------ip123--------------"+"</br>"
+    risk = risk + "</br><b>"+ "<font  color=>" +"风险 " + "</font> : " + "</b>"+ "<font  color=>"+obj["data"]["risk"]+"</font></br>"
+    risk = risk + "</br><b>"+ "<font  color=>" +"得分 " + "</font> : " + "</b>"+ "<font  color=>"+obj["data"]["score"]+"</font></br>"
     return (score+risk)
 }
 
