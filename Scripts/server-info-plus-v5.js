@@ -71,10 +71,10 @@ function Display(cnt, data) {
   score = "</br><b>"+ "<font  color=>" +"欺诈 " + "</font> : " + "</b>"+ "<font  color=>"+ score.replace(/"|,/g,"") +"</font></br>"
   let risk = cnt.indexOf(`"risk":`)!=-1 ?  cnt.split(`"risk":`)[1].split("\n")[0] : "NA"
   risk = "</br><b>"+ "<font  color=>" +"风险 " + "</font> : " + "</b>"+ "<font  color=>"+ E2C(risk.replace(/"|,/g,"")) +"</font></br>"
-  risk =risk + "</br><b>"+ "<font  color=>" +"代理 " + "</font> : " + "</b>"+ "<font  color=>"+ data.threat.is_proxy+"</font></br>"
-  risk =risk + "</br><b>"+ "<font  color=>" +"恶意 " + "</font> : " + "</b>"+ "<font  color=>"+ data.threat.is_known_attacker+"</font></br>"
-  risk =risk + "</br><b>"+ "<font  color=>" +"滥用 " + "</font> : " + "</b>"+ "<font  color=>"+ data.threat.is_known_abuser+"</font></br>"
-  risk =risk + "</br><b>"+ "<font  color=>" +"类型 " + "</font> : " + "</b>"+ "<font  color=>"+ data.asn.type+"</font></br>"
+  //risk =risk + "</br><b>"+ "<font  color=>" +"代理 " + "</font> : " + "</b>"+ "<font  color=>"+ data.threat.is_proxy+"</font></br>"
+  //risk =risk + "</br><b>"+ "<font  color=>" +"恶意 " + "</font> : " + "</b>"+ "<font  color=>"+ data.threat.is_known_attacker+"</font></br>"
+  //risk =risk + "</br><b>"+ "<font  color=>" +"滥用 " + "</font> : " + "</b>"+ "<font  color=>"+ data.threat.is_known_abuser+"</font></br>"
+  //risk =risk + "</br><b>"+ "<font  color=>" +"类型 " + "</font> : " + "</b>"+ "<font  color=>"+ data.asn.type+"</font></br>"
   return (score+risk)
 }
 
