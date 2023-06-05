@@ -21,16 +21,14 @@ $task.fetch(myRequest).then(response => {
         opts: opts,
         timeout: 4000
     };
+    var myRequest2 = {
+        url: "https://api.ipdata.co/?api-key=e2591b3a85fca5a39e04c34f530fc8d4b82400ff70df867b67eb3681&ip="+ip,
+        opts: opts,
+        timeout: 4000
+    };
 
     $task.fetch(myRequest1).then(response => {
-        var myRequest2 = {
-            url: "https://api.ipdata.co/?api-key=e2591b3a85fca5a39e04c34f530fc8d4b82400ff70df867b67eb3681&ip="+ip,
-            opts: opts,
-            timeout: 4000
-        };
         $task.fetch(myRequest2).then(resp => {
-            console.log("response.body==>"+ response.body)
-            console.log("resp.body==>"+ resp.body)
             message = message + Display(response.body, JSON.parse(resp.body))
             message = message+ "------------------------------"+"</br>"+"<font color=#6959CD>"+"<b>节点</b> ➟ " + $environment.params+ "</font>"
             message =  `<p style="text-align: center; font-family: -apple-system; font-size: large; font-weight: thin">` + message + `</p>`
