@@ -51,7 +51,13 @@ if (Area_check(obj['country']) != City_ValidCheck(obj['city'])) {
 
 var subtitle = ISP_ValidCheck(obj['isp']);
 var ip = obj['query'];
-var description = '服务商: '+obj['isp'] + '\n\n'+'城市: ' +City_ValidCheck(obj['city'])+'\n\n'+'地区: ' +City_ValidCheck(obj['regionName'])+ '\n\n' + 'IP: '+ obj['query'] + '\n\n' +'时区: '+ obj['timezone'];
+var description = '\n';
+description = description + 'IP: '+ obj['query'] + '\n\n';
+description = description + '服务商: '+ obj['isp'] + '\n\n';
+description = description + '国家: '+ obj['country'] + '\n\n';
+description = description + '城市: '+ City_ValidCheck(obj['city']) + '\n\n';
+description = description + '地区: '+ obj['regionName'] + '\n\n';
+description = description + '时区: '+ obj['timezone'] + '\n\n';
 $done({title, subtitle, ip, description});
 
 //var url = "https://api.ipdata.co/?api-key=e2591b3a85fca5a39e04c34f530fc8d4b82400ff70df867b67eb3681"
