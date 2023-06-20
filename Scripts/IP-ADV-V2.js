@@ -42,10 +42,11 @@ var flags = new Map([["AC","🇦🇨"],["AD","🇦🇩"],["AE","🇦🇪"],["AF"
 
 var body = $response.body;
 var obj = JSON.parse(body);
-if Area_check(obj['country']) != City_ValidCheck(obj['city']) {
-  var title =flags.get(obj['countryCode']) + ' '+Area_check(obj['country'])+' '+City_ValidCheck(obj['city']);
+var title = "";
+if (Area_check(obj['country']) != City_ValidCheck(obj['city'])) {
+  title = flags.get(obj['countryCode']) + ' '+Area_check(obj['country'])+' '+City_ValidCheck(obj['city']);
 }else{
-  var title =flags.get(obj['countryCode']) + ' '+Area_check(obj['country'])+' '+City_ValidCheck(obj['regionName']);
+  title =flags.get(obj['countryCode']) + ' '+Area_check(obj['country'])+' '+City_ValidCheck(obj['regionName']);
 }
 
 var subtitle = ISP_ValidCheck(obj['isp']);
