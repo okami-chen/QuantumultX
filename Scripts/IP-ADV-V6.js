@@ -57,6 +57,7 @@ description = description + '服务商: '+ obj['isp'] + '\n\n';
 description = description + '国家: '+ obj['country'] + '\n\n';
 description = description + '城市: '+ City_ValidCheck(obj['city']) + '\n\n';
 description = description + '地区: '+ obj['regionName'] + '\n\n';
+description = description + '邮编: '+ obj['zip'] + '\n\n';
 description = description + '时区: '+ obj['timezone'] + '\n\n';
 $done({title, subtitle, ip, description});
 
