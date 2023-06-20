@@ -43,9 +43,9 @@ var flags = new Map([["AC","🇦🇨"],["AD","🇦🇩"],["AE","🇦🇪"],["AF"
 var body = $response.body;
 var obj = JSON.parse(body);
 var title =flags.get(obj['countryCode']) + ' '+ City_ValidCheck(obj['city']);//+Area_check(obj['country']);
-var subtitle = ISP_ValidCheck(obj['org']);
+var subtitle = ISP_ValidCheck(obj['isp']);
 var ip = obj['query'];
-var description = '服务商:'+obj['isp'] + '\n'+'地区:' +City_ValidCheck(obj['regionName'])+ '\n' + 'IP:'+ obj['query'] + '\n' +'时区:'+ obj['timezone'];
+var description = '服务商: '+obj['isp'] + '\n'+'城市: ' +City_ValidCheck(obj['city'])+'\n'+'地区: ' +City_ValidCheck(obj['regionName'])+ '\n' + 'IP: '+ obj['query'] + '\n' +'时区: '+ obj['timezone'];
 $done({title, subtitle, ip, description});
 
 //var url = "https://api.ipdata.co/?api-key=e2591b3a85fca5a39e04c34f530fc8d4b82400ff70df867b67eb3681"
