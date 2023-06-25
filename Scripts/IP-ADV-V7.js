@@ -49,7 +49,9 @@ if (Area_check(obj['country']) != City_ValidCheck(obj['city'])) {
   title =flags.get(obj['countryCode']) + ' '+Area_check(obj['country'])+' '+City_ValidCheck(obj['regionName']);
 }
 
-var subtitle = ISP_ValidCheck(obj['isp']);
+title = title + ' ' + obj['regionName']
+
+var subtitle = ISP_ValidCheck(obj['isp']) + ' ' + obj['query'];
 var ip = obj['query'];
 var description = '\n';
 description = description + 'IP: '+ obj['query'] + '\n\n';
