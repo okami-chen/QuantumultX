@@ -44,10 +44,12 @@ var body = $response.body;
 var obj = JSON.parse(body);
 var title = "";
 if (Area_check(obj['country']) != City_ValidCheck(obj['city'])) {
-  title = flags.get(obj['countryCode']) + ' '+Area_check(obj['country']) + ' ' + obj['regionName'] + ' ' + City_ValidCheck(obj['city'])
+  //title = flags.get(obj['countryCode']) + ' '+Area_check(obj['country']) + ' ' + obj['regionName'] + ' ' + City_ValidCheck(obj['city'])
 }else{
-  title = flags.get(obj['countryCode']) + ' '+Area_check(obj['country']) + ' ' + obj['regionName']
+  //title = flags.get(obj['countryCode']) + ' '+Area_check(obj['country']) + ' ' + obj['regionName']
 }
+
+title = flags.get(obj['countryCode']) + ' '+Area_check(obj['country']) + ' ' + obj['city']
 
 var subtitle = ISP_ValidCheck(obj['isp']) + ' ' + obj['query'];
 var ip = obj['query'];
